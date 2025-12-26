@@ -1,1 +1,82 @@
+LAB_1:Networking and interface configuration
+Step-1
+-First logged into pfsense web GUI
+-next navigate to interfaces->Assignments
+Step-2
+-Go to interfaces->LAN
+-Set ipv4 configuration to static ipv4
+-Assigned to ip address 192.168.10.1/24
+-save and apply changes
+Step-3
+-Next renamed interfaces to 
+LAN->LANCORE
+WAN->WANUPLINK
+-save and aplply changes
+Step-4
+-Next Reboot pfsense
+Diagnostics->Reboot
+-after reboot it displayed GUI page
+-verified interface names and ip configuration
+Step-5
+-change the MTU
+-next navigated to interfaces->lancore
+-set mtu value to 1500
+-save and apply changes
+-next verify mtu changes in the interface page
+status->interfaces
+Step-6
+-next disable any one of the interface
+-select any interface (lancore or wanuplink)
+-in this disable the interface
+-save and apply changes
+Step-7
+-verify the traffic
+-status->interfaces
+-traffic is blocked
 
+-------------------------------------------------------------------------------
+
+LAB-2-Firewall Rule Logic & policy Enforcement
+
+Step-1
+-logged into pfsense web GUI page
+-Navigate to Firewall->rules->lancore
+-add rules
+  *action:pass
+  *protocol:any
+  *source:ip(192.168.10.1)
+  *destination:any
+-save any apply changes
+Step-2
+-next navigate to firewall->rules->lancore
+-add rules
+  *actiom:block
+  *protocol:ICMP
+  *source:lancore subnet
+  *destination:any
+-save and apply changes
+Step-3
+-next schedule working hours
+-navigate to firewall->schedules
+-create schedule name toworking_hours
+-next select date from mon-fri
+-set time range to 9:00 to 17:00
+-and click add time configured range
+-save the schedule
+Step-4
+-add schedule to the rule
+-navigate to firewall->rules->lancore
+-go to advanced options add schedule to working_hours
+-saveand apply chnages
+Step-5
+-navigate to firewall->rule->lancore
+-edit the block rule
+-tick the log packets that are  handles by this rule
+-save and apply chnages
+-next verify that logs in status->system logs->firewall
+Step-6
+-see the blocked traffic
+-go to status->sattuslogs->firewall
+-identify the blocked entries marked with red
+-------------------------------------------------------------------------
+LAB-3-
